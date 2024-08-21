@@ -1,8 +1,10 @@
 import { useEffect, useRef } from "react"
 import Map from "@arcgis/core/Map";
 import MapView from "@arcgis/core/views/MapView"
+import fetchCovidData from "../api/covid_data";
 export default function InitialMap() {
   const mapDiv = useRef<HTMLDivElement>(null);
+  fetchCovidData();
 
   useEffect(() => {
     if(mapDiv.current) {
