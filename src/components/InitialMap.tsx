@@ -31,35 +31,38 @@ export default function InitialMap() {
 
       GetLocationValuesFromData().then((value) => {
         console.log("value in GetLocationValuesFromData", value)
+
         for(let i = 0; i < value.length; i++) {
           // Destructure the values from the inner arrays
-          const [longitude, latitude] = value[i];
-          //create new point for each coordinate
-          const point = new Point({
-            longitude:longitude,
-            latitude: latitude
-          });
-
-          const pointGraphic = new Graphic({
-            geometry: point,
-            symbol: {
-              type: 'simple-marker',
-              color: 'red',
-              outline: {
-                color: [233, 122, 200],
-                width: 1
+          if(value[i].length !== 0) {
+            const [longitude, latitude] = value[i];
+            //create new point for each coordinate
+            const point = new Point({
+              longitude:longitude,
+              latitude: latitude
+            });
+  
+            const pointGraphic = new Graphic({
+              geometry: point,
+              symbol: {
+                type: 'simple-marker',
+                color: 'red',
+                outline: {
+                  color: [233, 122, 200],
+                  width: 1
+                }
+              },
+              attributes: {
+                name: `Location ${i + 1}` // Example: naming each point
+              },
+              popupTemplate: {
+                title: `Location ${i + 1}`,
+                content: `Coordinates: (${latitude}, ${longitude})`
               }
-            },
-            attributes: {
-              name: `Location ${i + 1}` // Example: naming each point
-            },
-            popupTemplate: {
-              title: `Location ${i + 1}`,
-              content: `Coordinates: (${latitude}, ${longitude})`
-            }
-          });
-          
-          graphicLayer.add(pointGraphic)
+            });
+            
+            graphicLayer.add(pointGraphic)
+          }
         }
       })
 
