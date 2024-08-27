@@ -18,7 +18,7 @@ export interface BovidData {
 
 async function fetchCovidData():Promise<BovidData[]> {
   // cdc api
-  const apiUrl = "https://data.cdc.gov/resource/3nnm-4jni.json?$limit=100";
+  const apiUrl = "http://127.0.0.1:5000/api/covid-data";
   try {
     const response = await fetch(apiUrl);
     if(!response.ok) {
