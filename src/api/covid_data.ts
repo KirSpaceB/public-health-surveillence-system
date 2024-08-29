@@ -25,6 +25,7 @@ async function fetchCovidData():Promise<BovidData[]> {
       throw new Error(`Response Status: ${response.status}`)
     }
     const jsonFromApi = await response.json();
+    // we only need the health service area
     console.log("data from covid_data.ts", jsonFromApi);
     return jsonFromApi;
   } catch(error) {

@@ -2,13 +2,14 @@ import { addressToLocations, } from "@arcgis/core/rest/locator";
 import getStateAbbreviation from "./GetStateAbbreviations";
 // the issue here is that we might need to format it in "County, State" form
 async function geocodeCounty(county?:string, state?:string):Array {
-  const url = "https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer";
+  const geoCodingAPI = "https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer";
   const geocodedLocationCovertedToCoordinates = [];
 
   if(county != undefined && state != undefined) {
     try {
       const stateAbbreviation = getStateAbbreviation(state);
-      const results = await addressToLocations(url,
+      // We need to change this to single line
+      const geocodedLocationResults = await addressToLocations(geoCodingAPI,
         {
           address: {
             "City": county,
@@ -16,10 +17,10 @@ async function geocodeCounty(county?:string, state?:string):Array {
           }
         }
       )
-      console.log("results from geocodeCounty", results);
-      if(results.length > 0) {
+      console.log("results from geocodeCounty", geocodedLocationResults);
+      if(geocodedLocationResults.length > 0) {
         // Destructuring x and y properties from the location object
-        const { x, y } = results[0].location;
+        const { x, y } = geocodedLocationResults[0].location;
         
         // Assuming geocodedLocationCovertedToCoordinates is an array
         geocodedLocationCovertedToCoordinates.push(x, y);
