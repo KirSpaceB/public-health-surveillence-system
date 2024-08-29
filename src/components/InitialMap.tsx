@@ -11,6 +11,7 @@ export default function InitialMap() {
   const mapDiv = useRef<HTMLDivElement>(null);
   // This fetch covid data returns a promise from the cdc api
   // We can't just place this in
+  // Test to see if we can remove this
   fetchCovidData();
 
   useEffect(() => {

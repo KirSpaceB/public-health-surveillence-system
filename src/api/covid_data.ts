@@ -16,22 +16,23 @@ export interface BovidData {
   state:string
 }
 
-async function fetchCovidData():Promise<BovidData[]> {
-  // cdc api
+async function fetchCovidData():Promise<string[]> {
   const apiUrl = "http://127.0.0.1:5000/api/covid-data";
   try {
     const response = await fetch(apiUrl);
+
     if(!response.ok) {
       throw new Error(`Response Status: ${response.status}`)
     }
+
     const jsonFromApi = await response.json();
-    // we only need the health service area
-    console.log("data from covid_data.ts", jsonFromApi);
+    console.log("data from covid_data.ts which we get from covid_data_api.py", jsonFromApi);
     return jsonFromApi;
+
   } catch(error) {
     console.log(error as Error["message"])
   }
-  return [{'error': "no data from fetchCovidDataFunction"}]
+  return ["CovidData.ts has failed", "Check it"]
 }
 
 export default fetchCovidData
